@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hydro-power-cost-prediction"
+version = "0.1.0"
+description = "Elastic Net regression (Ridge + Lasso) to predict hydro plant marginal cost ($/MWh) from SCADA-like signals."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  {name = "Mobin Yousefi", email = ""}
+]
+license = {text = "MIT"}
+keywords = ["hydropower", "elastic-net", "ml", "scikit-learn", "time-series", "energy"]
+
+dependencies = [
+  "pandas>=2.0",
+  "numpy>=1.24",
+  "scikit-learn>=1.3",
+  "matplotlib>=3.7",
+  "seaborn>=0.12",
+  "joblib>=1.3",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+  "ruff>=0.5.0",
+  "black>=24.3",
+]
+
+[project.scripts]
+hydro-train = "hydro_cost.train:main"
+hydro-eval = "hydro_cost.evaluate:main"
+hydro-predict = "hydro_cost.predict:main"
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "UP", "B", "SIM", "PL"]
+ignore = ["E203", "E266", "E501"]
+fix = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-q --disable-warnings"
+python_files = ["test_*.py", "*_test.py"]
